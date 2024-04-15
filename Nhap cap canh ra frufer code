@@ -1,0 +1,86 @@
+//Bien dich gcc prufercode.c -o prufercode
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_VERTICES 100000
+
+// Ham tinh ma Prufer code
+void prufer_code(int n, int m, int edges[][2]) {
+    int degrees[n + 1];
+    int prufer[n - 2];
+
+    // Khoi tao mang tinh bac cac dinh
+    for (int i = 1; i <= n; i++) {
+        degrees[i] = 0;
+    }
+
+    // Tinh bac moi dinh
+    for (int i = 0; i < m; i++) {
+        degrees[edges[i][0]]++;
+        degrees[edges[i][1]]++;
+    }
+
+    // Tinh ma Prufer code
+    int j = 0;
+    while (j < n - 2) {
+        int min_leaf = -1;
+        for (int i = 1; i <= n; i++) {
+            if (degrees[i] == 1 && (min_leaf == -1 || i < min_leaf)) {
+                min_leaf = i;
+            }
+        }
+
+        int neighbor = -1;
+        for (int i = 0; i < m; i++) {
+            if (edges[i][0] == min_leaf) {
+                neighbor = edges[i][1];
+                break;
+            }
+            if (edges[i][1] == min_leaf) {
+                neighbor = edges[i][0];
+                break;
+            }
+        }
+
+        prufer[j++] = neighbor;
+
+        degrees[min_leaf] = 0; // Loai bo dinh la khoi danh sach
+        degrees[neighbor]--; // Giam bac dinh ke
+    }
+
+    // In ma Prufer code
+    printf("Prufer code: ");
+    for (int i = 0; i < n - 2; i++) {
+        printf("%d ", prufer[i]);
+    }
+    printf("\n");
+}
+
+// Hàm chính
+int main() {
+    // Nhap so luong dinh va canh cua cay
+    int n, m;
+    printf("Nhap so luong dinh cua cay: ");
+    scanf("%d", &n);
+    printf("Nhap so luong canh cua cay: ");
+    scanf("%d", &m);
+
+    // Kiem tra neu so dinh ko du tao thanh cay
+    if (m != n - 1) {
+        printf("So luong canh khong hop le! Mot cay co %d dinh se co %d canh.\n", n, n - 1);
+        return 1;
+    }
+
+    // Nhap danh sach cac canh
+    int edges[MAX_VERTICES][2];
+    printf("Nhap danh sach cac canh (moi canh la mot cap so nguyen cach nhau boi khoang trang):\n");
+    for (int i = 0; i < m; i++) {
+        printf("Canh %d: ", i + 1);
+        scanf("%d %d", &edges[i][0], &edges[i][1]);
+    }
+
+    // Tinh ma Prufer code
+    prufer_code(n, m, edges);
+
+    return 0;
+}
