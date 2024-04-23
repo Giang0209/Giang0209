@@ -1,0 +1,13 @@
+sudo apt-get install graphviz
+dot -Tpdf "tenfilekhongcanduoi.dotcungduoc"  -o "ten.pdf"
+
+du lieu duoc lay tu file input.txt
+MAX 50
+
+do em chua biet nhap vao file
+thay chiu kho them > de ghi vao file giup e voi nha ^^
+trong code duong dan toi file input trong may thay co the khac cua e !!
+
+g++ -g color1.cpp -o color1 
+./color1 > lan1.txt
+dot -Tpdf lan1.txt -o lan1.pdf
