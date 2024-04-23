@@ -11,3 +11,4 @@ trong code duong dan toi file input trong may thay co the khac cua e !!
 g++ -g color1.cpp -o color1 
 ./color1 > lan1.txt
 dot -Tpdf lan1.txt -o lan1.pdf
+do moi lap trinh nen e co tham khao them ben ngoai, mong thay thong cam va cham chuoc a
